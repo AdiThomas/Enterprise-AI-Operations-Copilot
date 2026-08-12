@@ -51,10 +51,10 @@ enterprise-ai-copilot/
 ## Phase 0 — Environment & repo setup
 **Goal:** Both of you can run `docker compose up` and hit a working health check.
 
-- [ ] **[Together]** Create the repo with the structure above
-- [ ] **[A]** Write `docker-compose.yml` (Postgres+pgvector, Redis, n8n services)
-- [ ] **[A]** Create `.env.example` listing every required variable
-- [ ] **[A]** Scaffold FastAPI with a single `/health` route
+- [X] **[Together]** Create the repo with the structure above
+- [X] **[A]** Write `docker-compose.yml` (Postgres+pgvector, Redis, n8n services)
+- [X] **[A]** Create `.env.example` listing every required variable
+- [X] **[A]** Scaffold FastAPI with a single `/health` route
 - [ ] **[B]** Confirm `LANGSMITH_TRACING=true` produces a real trace in the LangSmith UI on a trivial test call
 
 **Definition of done:** `docker compose up`, hit `/health`, see `200 OK`, see a test trace in LangSmith. Commit and push.
