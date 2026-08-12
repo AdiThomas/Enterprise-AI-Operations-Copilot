@@ -1,7 +1,7 @@
 """FastAPI entrypoint for the Enterprise AI Operations Copilot backend.
 
-Phase 0 scope: just a health check. The LangGraph app gets wired in during
-Phase 1 (see Implementation_Development_Plan.md).
+Phase 1: /health only. The LangGraph supervisor lives in app.graph
+(invoke via invoke_copilot); HTTP/streaming exposure comes later.
 """
 
 from fastapi import FastAPI

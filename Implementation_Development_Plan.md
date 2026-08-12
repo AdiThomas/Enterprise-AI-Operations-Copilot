@@ -64,13 +64,13 @@ enterprise-ai-copilot/
 ## Phase 1 — Core graph skeleton
 **Goal:** The supervisor correctly routes between stub agents.
 
-- [ ] **[B]** Define the shared state schema in `state.py` (start simple: a message list)
-- [ ] **[B]** Write the supervisor node (classifies the request, names the next node)
-- [ ] **[B]** Write the Knowledge Agent stub (B owns this agent going forward)
+- [X] **[B]** Define the shared state schema in `state.py` (start simple: a message list)
+- [X] **[B]** Write the supervisor node (classifies the request, names the next node)
+- [X] **[B]** Write the Knowledge Agent stub (B owns this agent going forward)
 - [ ] **[A]** Write the Diagnostics and Ticketing Agent stubs (A owns these going forward — good early exposure to the graph code)
-- [ ] **[B]** Wire `add_conditional_edges` and the return-to-supervisor edges
-- [ ] **[B]** Set `recursion_limit=25` on `.invoke()` calls
-- [ ] **[Together]** Write and review the pytest routing tests (3 messages → 3 correct stub agents)
+- [X] **[B]** Wire `add_conditional_edges` and the return-to-supervisor edges
+- [X] **[B]** Set `recursion_limit=25` on `.invoke()` calls
+- [X] **[Together]** Write and review the pytest routing tests (3 messages → 3 correct stub agents)
 
 **Definition of done:** All 3 routing tests pass, visible in a LangSmith trace.
 
@@ -190,7 +190,7 @@ enterprise-ai-copilot/
 ## Person B — full task list (orchestration, RAG, frontend)
 
 - [X] LangSmith tracing confirmation (Phase 0)
-- [ ] State schema, supervisor node, Knowledge Agent stub, conditional edges, recursion limit (Phase 1)
+- [X] State schema, supervisor node, Knowledge Agent stub, conditional edges, recursion limit (Phase 1)
 - [ ] `ingest.py`, real Knowledge Agent retrieval, first RAGAS baseline (Phase 2)
 - [ ] `interrupt()` wrapping, resume wiring (paired with A), persistent checkpointer (Phase 4)
 - [ ] Next.js app, streaming chat UI, agent-attribution display, pending-approvals view (Phase 6)
