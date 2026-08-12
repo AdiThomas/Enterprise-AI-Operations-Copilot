@@ -55,9 +55,9 @@ enterprise-ai-copilot/
 - [X] **[A]** Write `docker-compose.yml` (Postgres+pgvector, Redis, n8n services)
 - [X] **[A]** Create `.env.example` listing every required variable
 - [X] **[A]** Scaffold FastAPI with a single `/health` route
-- [ ] **[B]** Confirm `LANGSMITH_TRACING=true` produces a real trace in the LangSmith UI on a trivial test call
+- [X] **[B]** Confirm `LANGSMITH_TRACING=true` produces a real trace in the LangSmith UI on a trivial test call
 
-**Definition of done:** `docker compose up`, hit `/health`, see `200 OK`, see a test trace in LangSmith. Commit and push.
+**Definition of done:** `docker compose up`, hit `/health`, see `200 OK`, see a test trace in LangSmith. Commit and push. Both A and B Phase 0 tasks are complete.
 
 ---
 
@@ -189,7 +189,7 @@ enterprise-ai-copilot/
 
 ## Person B — full task list (orchestration, RAG, frontend)
 
-- [ ] LangSmith tracing confirmation (Phase 0)
+- [X] LangSmith tracing confirmation (Phase 0)
 - [ ] State schema, supervisor node, Knowledge Agent stub, conditional edges, recursion limit (Phase 1)
 - [ ] `ingest.py`, real Knowledge Agent retrieval, first RAGAS baseline (Phase 2)
 - [ ] `interrupt()` wrapping, resume wiring (paired with A), persistent checkpointer (Phase 4)
