@@ -6,12 +6,28 @@ answers real questions from a real (synthetic) knowledge base.
 **Person A's specific line item:** "Add the `pgvector` extension and
 `document_chunks` table to Postgres."
 
-**Status: code complete, not yet verified against a live Postgres.** This
-session had no Docker or `uv` available to actually run `docker compose up`
-and the init script — see Verification below for what to run before checking
-the Phase 2 box in `Implementation_Development_Plan.md`. Unlike the P0/P1
-docs, the checkbox is deliberately left unchecked until that live pass has
-actually happened.
+**Status: complete — verified against a live Postgres.** `docker compose up -d
+postgres`, `init_db.py`, and the full `pytest` suite (10 passed, 0 skipped)
+all ran clean. The Phase 2 box for this line item is now checked in
+`Implementation_Development_Plan.md`.
+
+**Bug caught during verification:** `.env.example` (and the `.env` copied
+from it) had `DATABASE_URL=postgresql://...` with no driver suffix. SQLAlchemy
+resolves a bare `postgresql://` scheme to the `psycopg2` driver by default,
+but this project depends on `psycopg` (v3, via `psycopg[binary]>=3.2` in
+`pyproject.toml`) — `psycopg2` was never installed, so `get_engine()` raised
+`ModuleNotFoundError: No module named 'psycopg2'` on the first real connection
+attempt. Fixed by changing both files to
+`postgresql+psycopg://copilot:copilot_dev_password@localhost:5432/copilot`.
+This is exactly the class of bug the "not yet verified" status above was
+flagging — it could only surface once something actually connected.
+
+Separately: `scripts/init_db.py` fails with `ModuleNotFoundError: No module
+named 'app'` if run as `uv run python scripts/init_db.py` from `backend/`
+without `PYTHONPATH=.` set first. Running a script directly only puts the
+script's own directory on `sys.path`, not `backend/` — pytest doesn't hit this
+because it inserts the rootdir itself. Use:
+`PYTHONPATH=. uv run python scripts/init_db.py`.
 
 ---
 
@@ -69,9 +85,9 @@ actually happened.
 - Ran the full `backend/tests/` suite: all 6 existing routing/health tests still pass, `test_db.py` skips cleanly with a clear message instead of erroring — caught and fixed a real bug this way (see "Lazy engine" above)
 - Deleted the throwaway venv afterward; nothing here touched the repo's real environment
 
-**What I could not verify:** that this DDL actually executes against a live `pgvector/pgvector:pg16` instance, and that `test_db.py`'s three real assertions pass. That requires the commands below, run on a machine with Docker.
+**What I could not verify (this session, no Docker/uv):** that this DDL actually executes against a live `pgvector/pgvector:pg16` instance, and that `test_db.py`'s three real assertions pass.
 
-## Verification (run this before checking the Phase 2 box)
+## Verification (run in a later session, against live Docker — completed)
 
 ```powershell
 docker compose up -d postgres
@@ -79,7 +95,7 @@ docker compose up -d postgres
 
 cd backend
 uv sync --extra dev   # installs pgvector + everything else now in pyproject.toml
-uv run python scripts/init_db.py
+PYTHONPATH=. uv run python scripts/init_db.py   # PYTHONPATH needed — see bug note above
 # → pgvector_extension_installed=True
 # → document_chunks_table_exists=True
 # → db_init_ok=true
@@ -90,5 +106,9 @@ uv run pytest tests/test_db.py -v
 uv run pytest -v
 # → all tests pass (7 prior + 3 new = 10), 0 skipped
 ```
+
+Required `DATABASE_URL=postgresql+psycopg://...` in `.env`/`.env.example`
+(bare `postgresql://` resolves to the uninstalled `psycopg2` driver — see bug
+note above) before `init_db.py` would connect.
 
 Once that's green, check the box in `Implementation_Development_Plan.md` and update the status line above from "code complete" to "complete."

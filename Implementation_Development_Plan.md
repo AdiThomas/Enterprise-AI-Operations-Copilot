@@ -82,7 +82,7 @@ enterprise-ai-copilot/
 - [X] **[Together]** Write the one-page fictional company profile (name, industry, size, locations)
 - [X] **[Together]** Generate the first-pass batch of IT/network docs with an LLM (5–10 documents)
 - [X] **[Together]** Hand-edit the 2–3 documents you'll use in the live demo
-- [ ] **[A]** Add the `pgvector` extension and `document_chunks` table to Postgres
+- [X] **[A]** Add the `pgvector` extension and `document_chunks` table to Postgres
 - [ ] **[B]** Write `ingestion/ingest.py` (chunk → embed → upsert)
 - [ ] **[B]** Replace the Knowledge Agent stub with real retrieval + synthesis
 - [ ] **[Together]** Write 10–15 golden QA pairs against your own docs
@@ -181,7 +181,7 @@ enterprise-ai-copilot/
 
 - [X] docker-compose.yml, `.env.example`, FastAPI `/health` (Phase 0)
 - [X] Diagnostics + Ticketing Agent stubs (Phase 1)
-- [ ] pgvector extension + `document_chunks` table (Phase 2)
+- [X] pgvector extension + `document_chunks` table (Phase 2)
 - [ ] `tickets` table, mock status API, Diagnostics Agent tools, `create_ticket` + idempotency (Phase 3)
 - [ ] `/approvals` FastAPI routes (Phase 4, paired with B on the resume wiring)
 - [ ] n8n workflows 1 & 2, `NotificationAgent` tool, workflow JSON export (Phase 5)
