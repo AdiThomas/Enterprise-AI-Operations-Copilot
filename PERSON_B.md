@@ -35,3 +35,35 @@ Repro script (local only; needs `.env`): `backend/scripts/phase0_langsmith_ping.
 | pnpm | 11.21.0 |
 
 Also added `CONTRIBUTING.md` (branch/PR agreements) and `eval/README.md` (placeholder for Phase 2/7).
+
+---
+
+## 2026-08-11 — Phase 1: Graph skeleton + routing
+
+**Status:** Person B tasks complete. Diagnostics/Ticketing stubs are placeholders only.
+
+### What changed
+
+- Shared state in `backend/app/state.py`: `messages` + `next_agent`.
+- Supervisor node (`backend/app/agents/supervisor.py`) classifies the latest user message and names the next node. Phase 1 uses a deterministic keyword classifier (injectable) so routing does **not** call Anthropic.
+- Knowledge Agent stub (`backend/app/agents/knowledge.py`) — B owns this going forward.
+- Graph wiring in `backend/app/graph.py`: `add_conditional_edges` from supervisor, specialists return to supervisor, `recursion_limit=25` on every `invoke_copilot()` / `DEFAULT_INVOKE_CONFIG`.
+- Pytest routing tests in `backend/tests/test_routing.py` (3 messages → knowledge / diagnostics / ticketing). Person A should review these as the Phase 1 **[Together]** item.
+
+### Person A should take these files
+
+Placeholder stubs so the graph compiles and tests pass. **Do not treat as A's Phase 1 checkbox** — A owns the real Diagnostics/Ticketing work:
+
+- `backend/app/agents/diagnostics.py` — header: "Person A owns this agent going forward."
+- `backend/app/agents/ticketing.py` — same. No tools, tickets, or mock status APIs (Phase 3).
+
+### How to run tests
+
+From `backend/` (no live LLM; does not spend Anthropic budget):
+
+```powershell
+uv sync --extra dev
+uv run pytest
+```
+
+Or `pytest` if the venv is already active. Expected: health check + routing tests pass.
