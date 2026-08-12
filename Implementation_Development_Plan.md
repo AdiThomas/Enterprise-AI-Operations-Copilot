@@ -17,11 +17,11 @@ If one of you already has a strong preference (e.g. you'd rather own the fronten
 
 ## Prerequisites (do this before Phase 0) — **[Together]**
 
-- [ ] Python 3.11+, `uv`/`poetry`, Node 20+, `pnpm`, Docker Desktop — both machines
-- [ ] Shared GitHub repo, both as collaborators
-- [ ] API keys — Anthropic/OpenAI, and a shared LangSmith org with both of you as members
-- [ ] Decide: monorepo (recommended), branch strategy, PR review rule, weekly sync time
-- [ ] Agree on the domain split above — swap columns now if you want to, not mid-build
+- [ X] Python 3.11+, `uv`/`poetry`, Node 20+, `pnpm`, Docker Desktop — both machines
+- [ X] Shared GitHub repo, both as collaborators
+- [ X] API keys — Anthropic/OpenAI, and a shared LangSmith org with both of you as members
+- [X ] Decide: monorepo (recommended), branch strategy, PR review rule, weekly sync time
+- [X ] Agree on the domain split above — swap columns now if you want to, not mid-build
 
 **Recommended repo structure:**
 ```
@@ -67,7 +67,7 @@ enterprise-ai-copilot/
 - [X] **[B]** Define the shared state schema in `state.py` (start simple: a message list)
 - [X] **[B]** Write the supervisor node (classifies the request, names the next node)
 - [X] **[B]** Write the Knowledge Agent stub (B owns this agent going forward)
-- [ ] **[A]** Write the Diagnostics and Ticketing Agent stubs (A owns these going forward — good early exposure to the graph code)
+- [X] **[A]** Write the Diagnostics and Ticketing Agent stubs (A owns these going forward — good early exposure to the graph code)
 - [X] **[B]** Wire `add_conditional_edges` and the return-to-supervisor edges
 - [X] **[B]** Set `recursion_limit=25` on `.invoke()` calls
 - [X] **[Together]** Write and review the pytest routing tests (3 messages → 3 correct stub agents)
@@ -179,8 +179,8 @@ enterprise-ai-copilot/
 
 ## Person A — full task list (backend, data, infra)
 
-- [ ] docker-compose.yml, `.env.example`, FastAPI `/health` (Phase 0)
-- [ ] Diagnostics + Ticketing Agent stubs (Phase 1)
+- [X] docker-compose.yml, `.env.example`, FastAPI `/health` (Phase 0)
+- [X] Diagnostics + Ticketing Agent stubs (Phase 1)
 - [ ] pgvector extension + `document_chunks` table (Phase 2)
 - [ ] `tickets` table, mock status API, Diagnostics Agent tools, `create_ticket` + idempotency (Phase 3)
 - [ ] `/approvals` FastAPI routes (Phase 4, paired with B on the resume wiring)
