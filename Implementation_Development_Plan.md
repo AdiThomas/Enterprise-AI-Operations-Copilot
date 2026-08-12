@@ -79,9 +79,9 @@ enterprise-ai-copilot/
 ## Phase 2 — RAG pipeline over real synthetic docs
 **Goal:** The Knowledge Agent answers real questions from a real (synthetic) knowledge base.
 
-- [ ] **[Together]** Write the one-page fictional company profile (name, industry, size, locations)
-- [ ] **[Together]** Generate the first-pass batch of IT/network docs with an LLM (5–10 documents)
-- [ ] **[Together]** Hand-edit the 2–3 documents you'll use in the live demo
+- [X] **[Together]** Write the one-page fictional company profile (name, industry, size, locations)
+- [X] **[Together]** Generate the first-pass batch of IT/network docs with an LLM (5–10 documents)
+- [X] **[Together]** Hand-edit the 2–3 documents you'll use in the live demo
 - [ ] **[A]** Add the `pgvector` extension and `document_chunks` table to Postgres
 - [ ] **[B]** Write `ingestion/ingest.py` (chunk → embed → upsert)
 - [ ] **[B]** Replace the Knowledge Agent stub with real retrieval + synthesis
