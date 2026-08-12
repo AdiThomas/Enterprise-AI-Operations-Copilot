@@ -24,3 +24,6 @@ postgres_data/
 # IDE
 .vscode/
 .idea/
+
+# Claude Code (local machine settings — not shared)
+.claude/settings.local.json
