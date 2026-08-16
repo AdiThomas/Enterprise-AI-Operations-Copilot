@@ -83,8 +83,8 @@ enterprise-ai-copilot/
 - [X] **[Together]** Generate the first-pass batch of IT/network docs with an LLM (5–10 documents)
 - [X] **[Together]** Hand-edit the 2–3 documents you'll use in the live demo
 - [X] **[A]** Add the `pgvector` extension and `document_chunks` table to Postgres
-- [ ] **[B]** Write `ingestion/ingest.py` (chunk → embed → upsert)
-- [ ] **[B]** Replace the Knowledge Agent stub with real retrieval + synthesis
+- [X] **[B]** Write `ingestion/ingest.py` (chunk → embed → upsert)
+- [X] **[B]** Replace the Knowledge Agent stub with real retrieval + synthesis
 - [ ] **[Together]** Write 10–15 golden QA pairs against your own docs
 - [ ] **[B]** Run the first RAGAS pass and record baseline scores
 
@@ -191,7 +191,8 @@ enterprise-ai-copilot/
 
 - [X] LangSmith tracing confirmation (Phase 0)
 - [X] State schema, supervisor node, Knowledge Agent stub, conditional edges, recursion limit (Phase 1)
-- [ ] `ingest.py`, real Knowledge Agent retrieval, first RAGAS baseline (Phase 2)
+- [X] `ingest.py`, real Knowledge Agent retrieval (Phase 2)
+- [ ] First RAGAS baseline (Phase 2)
 - [ ] `interrupt()` wrapping, resume wiring (paired with A), persistent checkpointer (Phase 4)
 - [ ] Next.js app, streaming chat UI, agent-attribution display, pending-approvals view (Phase 6)
 - [ ] Regression datasets, model tiering + cost comparison (Phase 7)

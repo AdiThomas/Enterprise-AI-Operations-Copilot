@@ -1,11 +1,15 @@
-"""Phase 1 routing tests: 3 user messages → 3 correct stub agents.
+"""Routing tests: 3 user messages → 3 correct specialist agents.
 
-Uses the deterministic keyword classifier (no live LLM / Anthropic calls).
+Uses a fake Knowledge Agent so graph-routing tests make no provider or database
+calls. Retrieval and synthesis behavior is covered independently in
+``test_knowledge.py``.
 Person A should review these as the Phase 1 [Together] item.
 """
 
+import pytest
 from langchain_core.messages import AIMessage
 
+import app.graph as graph_module
 from app.graph import (
     DEFAULT_INVOKE_CONFIG,
     RECURSION_LIMIT,
@@ -13,6 +17,18 @@ from app.graph import (
     invoke_copilot,
 )
 from app.state import ROUTE_DIAGNOSTICS, ROUTE_END, ROUTE_KNOWLEDGE, ROUTE_TICKETING
+
+
+@pytest.fixture(autouse=True)
+def fake_knowledge_node(monkeypatch: pytest.MonkeyPatch) -> None:
+    """Keep routing tests unit-level while the real node reads pgvector."""
+    monkeypatch.setattr(
+        graph_module,
+        "knowledge_node",
+        lambda _state: {
+            "messages": [AIMessage(content="[knowledge] stub handled: test query")]
+        },
+    )
 
 
 def _stub_texts(result: dict) -> list[str]:

@@ -67,3 +67,47 @@ uv run pytest
 ```
 
 Or `pytest` if the venv is already active. Expected: health check + routing tests pass.
+
+---
+
+## 2026-08-16 — Phase 2: RAG ingestion + Knowledge Agent
+
+**Status:** Person B implementation complete; live ingestion is blocked locally
+until Docker Desktop is running and an `OPENAI_API_KEY` is configured.
+
+### What changed
+
+- Added `ingestion/ingest.py`, which chunks the synthetic Markdown corpus at
+  paragraph boundaries (1,200 characters with 200-character overlap), embeds
+  using `text-embedding-3-small`, and conflict-upserts
+  `document_chunks` on `(source, chunk_index)`. It removes stale chunks when an
+  edited source becomes shorter, so re-ingestion is idempotent.
+- Replaced the Knowledge Agent stub with cosine-distance pgvector retrieval
+  (top 4 chunks), a single `WORKER_MODEL` / Haiku synthesis call, and
+  deduplicated source citations. It is read-only and has no ticketing or
+  notification tools.
+- Added `openai` to backend dependencies and mock-only unit coverage for answer
+  citation/empty-retrieval behavior. Routing tests now mock the Knowledge Agent
+  so they retain their no-provider, no-database contract.
+
+### How to run
+
+```powershell
+# Start Docker Desktop first, then from the repository root:
+docker compose up -d postgres
+cd backend
+$env:PYTHONPATH="."
+uv run python scripts/init_db.py
+cd ..
+uv run --project backend python ingestion/ingest.py
+```
+
+`OPENAI_API_KEY` is required only for live ingestion and query embeddings;
+`ANTHROPIC_API_KEY` is required for live synthesis. If Anthropic is unavailable,
+the agent returns retrieved documentation verbatim with citations instead of
+inventing an answer.
+
+### Deferred pairing/evaluation work
+
+- [Together] Write 10–15 golden QA pairs against the edited documentation.
+- [B] Run and record the first RAGAS baseline after the corpus is ingested.
